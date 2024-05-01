@@ -75,6 +75,6 @@ RUN mkdir -p /hadoop/dfs/namenode /hadoop/dfs/datanode /hadoop/hadooptmp /hadoop
 #	8030 = yarn.resourcemanager.scheduler.address
 #	8088 = yarn.resourcemanager.webapp.address
 #	8090 = yarn.resourcemanager.webapp.https.address
-EXPOSE 9000 9870 9866 9867 9864 9868 8088
+EXPOSE 9000 9870 9866 9867 9864 9868 8088 8030
 
 CMD ["hdfs"]
