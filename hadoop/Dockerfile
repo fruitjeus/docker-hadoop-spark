@@ -60,10 +60,10 @@ RUN mkdir -p /hadoop/dfs/namenode /hadoop/dfs/datanode /hadoop/hadooptmp /hadoop
 # https://hadoop.apache.org/docs/r3.3.6/hadoop-yarn/hadoop-yarn-common/yarn-default.xml
 
 # HDFS: NameNode (NN):
-#	 9820 = fs.defaultFS			(IPC / File system metadata operations)
+#	9820 = fs.defaultFS			(IPC / File system metadata operations)
 #						(9000 is also frequently used alternatively)
-#	 9871 = dfs.namenode.https-address	(HTTPS / Secure UI)
-#	 9870 = dfs.namenode.https-address	(HTTPS / Secure UI)
+#	9871 = dfs.namenode.https-address	(HTTPS / Secure UI)
+#	9870 = dfs.namenode.https-address	(HTTPS / Secure UI)
 # HDFS: DataNode (DN):
 #	9866 = dfs.datanode.address		(Data transfer)
 #	9867 = dfs.datanode.ipc.address	(IPC / metadata operations)

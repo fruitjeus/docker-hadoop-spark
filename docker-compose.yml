@@ -6,11 +6,13 @@ services:
     hostname: namenode
     ports:
       - "9870:9870"
+      - "8032:8032"
       - "8088:8088"
+      - "9000:9000"
     volumes:
       - namenode:/hadoop/dfs
     command: >
-      bash -c "hdfs namenode & hdfs datanode & yarn resourcemanager & yarn nodemanager & yarn historyserver "
+      bash -c "hdfs namenode & yarn resourcemanager & yarn historyserver "
 
   datanode:
     image: fruitjeus/hadoop:latest
@@ -20,6 +22,7 @@ services:
     command: >
       bash -c "hdfs secondarynamenode & hdfs datanode & yarn nodemanager "
     ports:
+      - "9866:9866"
       - "9868:9868"
       - "9864:9864"
     volumes:
