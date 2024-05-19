@@ -1,9 +1,9 @@
 version: '3'
 
 services:
-  namenode:
+  master:
     image: fruitjeus/hadoop:latest
-    hostname: namenode
+    hostname: master
     ports:
       - "9870:9870"
       - "8030:8030"
@@ -13,16 +13,19 @@ services:
       - "9000:9000"
       - "18080:18080"
       - "19888:19888"
+      - "19866:9866"
+      - "19868:9868"
+      - "19864:9864"
     volumes:
-      - namenode:/hadoop/dfs
+      - master:/hadoop/dfs
     command: >
-      bash -c "(hdfs namenode & yarn resourcemanager & yarn nodemanager & yarn timelineserver &) && (sleep 20; hdfs dfs -mkdir /spark-logs; start-history-server.sh) "
+      bash -c "(hdfs namenode & hdfs datanode & yarn resourcemanager & yarn nodemanager & yarn timelineserver &) && (sleep 20; hdfs dfs -mkdir /spark-logs; start-history-server.sh) "
 
-  datanode:
+  worker:
     image: fruitjeus/hadoop:latest
-    hostname: datanode
+    hostname: worker
     depends_on:
-      - namenode
+      - master
     command: >
       bash -c "hdfs datanode & yarn nodemanager "
     ports:
@@ -30,8 +33,8 @@ services:
       - "9868:9868"
       - "9864:9864"
     volumes:
-      - datanode:/hadoop/dfs
+      - worker:/hadoop/dfs
 volumes:
-  namenode: {}
-  datanode: {}
+  master: {}
+  worker: {}
 

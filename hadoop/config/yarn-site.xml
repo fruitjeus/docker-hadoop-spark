@@ -23,7 +23,7 @@
     </property>
     <property>
         <name>yarn.resourcemanager.hostname</name>
-        <value>namenode</value>
+        <value>master</value>
     </property>
 
     <property>
