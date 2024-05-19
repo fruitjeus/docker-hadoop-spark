@@ -20,7 +20,7 @@ services:
     volumes:
       - master:/hadoop/dfs
     command: >
-      bash -c "(hdfs namenode & hdfs datanode & yarn resourcemanager & yarn nodemanager & yarn timelineserver &) && (sleep 20; hdfs dfs -mkdir /spark-logs; start-history-server.sh) "
+      bash -c "(hdfs namenode & hdfs datanode & yarn resourcemanager & yarn nodemanager & yarn timelineserver & mapred historyserver &) && (sleep 20; hdfs dfs -mkdir /spark-logs; start-history-server.sh) "
 
   worker:
     image: fruitjeus/hadoop:latest
