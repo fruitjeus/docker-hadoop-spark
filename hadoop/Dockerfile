@@ -18,6 +18,7 @@ RUN sed -i s/deb.debian.org/archive.debian.org/g /etc/apt/sources.list \
 	netcat \
 	gnupg \
 	libsnappy-dev \
+	procps \
 	&& rm -rf /var/lib/apt/lists/*
 
 ####################
@@ -50,6 +51,29 @@ RUN mkdir -p /hadoop/dfs/namenode /hadoop/dfs/datanode /hadoop/hadooptmp /hadoop
 	&& hdfs --config $HADOOP_CONF_DIR namenode -format
 
 ####################
+# SPARK
+####################
+
+ENV SPARK_VERSION	3.3.3
+ENV SPARK_HOME		/usr/local/spark
+ENV SPARK_URL		https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop3.tgz
+ENV SPARK_NO_DAEMONIZE	false
+
+RUN set -x \
+	&& curl -fSL "$SPARK_URL" -o /tmp/spark.tar.gz \
+	&& tar -xvf /tmp/spark.tar.gz -C /tmp/ \
+	&& rm /tmp/spark.tar.gz* \
+	&& mv /tmp/spark-$SPARK_VERSION-bin-hadoop3 $SPARK_HOME
+
+# Overwrite default SPARK configuration files
+
+COPY config/spark-defaults.conf ${SPARK_HOME}/conf/
+
+# Add commands to PATH
+
+ENV PATH=${SPARK_HOME}/bin:${SPARK_HOME}/sbin:${PATH}
+
+####################
 # PORTS
 ####################
 #
@@ -75,6 +99,12 @@ RUN mkdir -p /hadoop/dfs/namenode /hadoop/dfs/datanode /hadoop/hadooptmp /hadoop
 #	8030 = yarn.resourcemanager.scheduler.address
 #	8088 = yarn.resourcemanager.webapp.address
 #	8090 = yarn.resourcemanager.webapp.https.address
-EXPOSE 9000 9870 9866 9867 9864 9868 8088 8030
+# YARN: Timeline
+#	8188 = yarn.timeline-service.webapp.address
+# MapReduce
+#	19888 = mapreduce.jobhistory.webapp.address MapReduce JobHistory Server
+# SPARK: History Server
+#	18080 
+EXPOSE 9000 9870 9866 9867 9864 9868 8088 8030 8188 19888 18080
 
 CMD ["hdfs"]

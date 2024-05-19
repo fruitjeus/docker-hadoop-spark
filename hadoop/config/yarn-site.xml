@@ -26,4 +26,24 @@
         <value>namenode</value>
     </property>
 
+    <property>
+        <name>yarn.timeline-service.enabled</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <description>The setting that controls whether yarn system metrics is
+            published on the timeline server or not by RM.</description>
+        <name>yarn.resourcemanager.system-metrics-publisher.enabled</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <description>Indicate to clients whether to query generic application
+            data from timeline history-service or not. If not enabled then application
+            data is queried only from Resource Manager.</description>
+        <name>yarn.timeline-service.generic-application-history.enabled</name>
+        <value>true</value>
+    </property>
+
 </configuration>
