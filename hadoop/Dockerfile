@@ -97,14 +97,15 @@ ENV PATH=${SPARK_HOME}/bin:${SPARK_HOME}/sbin:${PATH}
 # YARN: ResourceMananger
 #	8032 = yarn.resourcemanager.address	
 #	8030 = yarn.resourcemanager.scheduler.address
+#	8042 = yarn.nodemanager.webapp.address
 #	8088 = yarn.resourcemanager.webapp.address
 #	8090 = yarn.resourcemanager.webapp.https.address
-# YARN: Timeline
+# YARN: Timeline Service
 #	8188 = yarn.timeline-service.webapp.address
 # MapReduce
 #	19888 = mapreduce.jobhistory.webapp.address MapReduce JobHistory Server
 # SPARK: History Server
 #	18080 
-EXPOSE 9000 9870 9866 9867 9864 9868 8088 8030 8188 19888 18080
+EXPOSE 9000 9870 9866 9867 9864 9868 8088 8030 8042 8188 19888 18080
 
 CMD ["hdfs"]
